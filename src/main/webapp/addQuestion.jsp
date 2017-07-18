@@ -44,51 +44,28 @@
                         <div class="form-group">
                             <label for="questionText" class="col-sm-2 control-label">Question Text</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" rows="3" name="questionText" id="questionText"
-                                          placeholder="Question Text">
-                                </textarea>
+                                <textarea class="form-control" name="questionText" id="questionText"
+                                          placeholder="Question Text" rows="3"></textarea>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="answerA" class="col-sm-2 control-label">A</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
+                        <c:forEach var="entry" items="${characters.entrySet()}">
+                            <div class="form-group">
+                                <label for="answer_${entry.getKey()}" class="col-sm-2 control-label">
+                                        ${entry.getValue()}</label>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
                                 <span class="input-group-addon">
-                                    <input type="checkbox" name="correct_1" value="A" title="check correct answer">
+                                    <input type="checkbox" name="correct_${entry.getKey()}" value="${entry.getValue()}"
+                                           title="check correct answer">
                                 </span>
-                                    <input type="text" class="form-control" name="answer_1" id="answerA"
-                                           placeholder="Answer A">
+                                        <input type="text" class="form-control" name="answer_${entry.getKey()}"
+                                               id="answer_${entry.getKey()}" placeholder="Answer ${entry.getValue()}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </c:forEach>
 
-
-                        <div class="form-group">
-                            <label for="answerB" class="col-sm-2 control-label">B</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                <span class="input-group-addon">
-                                    <input type="checkbox" name="correct_2" value="B" title="check correct answer">
-                                </span>
-                                    <input type="text" class="form-control" name="answer_2" id="answerB"
-                                           placeholder="Answer B">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="answerC" class="col-sm-2 control-label">C</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                <span class="input-group-addon">
-                                    <input type="checkbox" name="correct_3" value="C" title="check correct answer">
-                                </span>
-                                    <input type="text" class="form-control" name="answer_3" id="answerC"
-                                           placeholder="Answer C">
-                                </div>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-9">
                                 <input class="btn btn-default" type="submit" value="Submit">

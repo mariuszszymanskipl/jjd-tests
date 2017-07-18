@@ -9,7 +9,7 @@ import java.util.List;
 public class Answers {
 
     private List<Answer> answers = new ArrayList<>();
-    private char[] correctAnswers;
+    private List<Character> correctAnswers = new ArrayList<>();
 
     public List<Answer> getAnswers() {
         return answers;
@@ -19,11 +19,11 @@ public class Answers {
         this.answers = answers;
     }
 
-    public char[] getCorrectAnswers() {
+    public List<Character> getCorrectAnswers() {
         return correctAnswers;
     }
 
-    public void setCorrectAnswers(char[] correctAnswers) {
+    public void setCorrectAnswers(List<Character> correctAnswers) {
         this.correctAnswers = correctAnswers;
     }
 }

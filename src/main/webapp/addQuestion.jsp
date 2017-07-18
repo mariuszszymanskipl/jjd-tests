@@ -4,7 +4,7 @@
 <html>
 <head>
     <jsp:include page="partials/meta.jsp"/>
-    <title>JJD Test</title>
+
 </head>
 <body>
 
@@ -55,9 +55,9 @@
                             <div class="col-sm-9">
                                 <div class="input-group">
                                 <span class="input-group-addon">
-                                    <input type="checkbox" name="correctA" value="A" title="check correct answer">
+                                    <input type="checkbox" name="correct_1" value="A" title="check correct answer">
                                 </span>
-                                    <input type="text" class="form-control" name="answerA" id="answerA"
+                                    <input type="text" class="form-control" name="answer_1" id="answerA"
                                            placeholder="Answer A">
                                 </div>
                             </div>
@@ -69,9 +69,9 @@
                             <div class="col-sm-9">
                                 <div class="input-group">
                                 <span class="input-group-addon">
-                                    <input type="checkbox" name="correctB" value="B" title="check correct answer">
+                                    <input type="checkbox" name="correct_2" value="B" title="check correct answer">
                                 </span>
-                                    <input type="text" class="form-control" name="answerB" id="answerB"
+                                    <input type="text" class="form-control" name="answer_2" id="answerB"
                                            placeholder="Answer B">
                                 </div>
                             </div>
@@ -82,9 +82,9 @@
                             <div class="col-sm-9">
                                 <div class="input-group">
                                 <span class="input-group-addon">
-                                    <input type="checkbox" name="correctC" value="C" title="check correct answer">
+                                    <input type="checkbox" name="correct_3" value="C" title="check correct answer">
                                 </span>
-                                    <input type="text" class="form-control" name="answerC" id="answerC"
+                                    <input type="text" class="form-control" name="answer_3" id="answerC"
                                            placeholder="Answer C">
                                 </div>
                             </div>

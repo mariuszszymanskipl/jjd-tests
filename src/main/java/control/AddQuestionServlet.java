@@ -13,9 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+
 
 /**
  * @author Mariusz Szymanski
@@ -29,42 +28,45 @@ public class AddQuestionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
+        Question question = makeQuestionFromParameters(request);
+        questionsStore.addQuestion(question);
+        writeJson(questionsStore);
+        request.getRequestDispatcher("addQuestion.jsp").forward(request,response);
+    }
+
+    private Question makeQuestionFromParameters(HttpServletRequest request){
+
+        Map<Integer, Character> characterMap = new HashMap<>();
+        List<Character> characters = Arrays.asList('A','B','C','D','E','F','G','H','I','J');
+        characters.forEach(ch -> characterMap.put(characters.indexOf(ch)+1,ch));
+
         Question question = new Question();
         question.setQuestionId(request.getParameter("questionId"));
         question.setQuestionText(request.getParameter("questionText"));
 
-        Answer answerA = new Answer();
         List<Answer> answers = new ArrayList<>();
-        answerA.setAnswerId('A');
-        answerA.setAnswerText(request.getParameter("answerA"));
-        answers.add(answerA);
-        Answer answerB = new Answer();
-        answerB.setAnswerId('B');
-        answerB.setAnswerText(request.getParameter("answerB"));
-        answers.add(answerB);
-        Answer answerC = new Answer();
-        answerC.setAnswerId('C');
-        answerC.setAnswerText(request.getParameter("answerC"));
-        answers.add(answerC);
+        Optional<Object> optionalAnswer;
+        for (int i=1; i <= 10; i++) {
+            optionalAnswer = Optional.ofNullable(request.getParameter("answer_" + i));
+            Integer key = i;
+            optionalAnswer.ifPresent(o -> {
+                Answer answer = new Answer();
+                answer.setAnswerText(o.toString());
+                answer.setAnswerId(characterMap.get(key));
+                answers.add(answer);
+            });
+        }
         question.setAnswers(answers);
 
         List<Character> correctAnswers = new ArrayList<>();
-        Optional<Object> objectOptional = Optional.ofNullable(request.getParameter("correctA"));
-        objectOptional.ifPresent(o -> correctAnswers.add(o.toString().charAt(0)));
-
-        objectOptional = Optional.ofNullable(request.getParameter("correctB"));
-        objectOptional.ifPresent(o -> correctAnswers.add(o.toString().charAt(0)));
-
-        objectOptional = Optional.ofNullable(request.getParameter("correctC"));
-        objectOptional.ifPresent(o -> correctAnswers.add(o.toString().charAt(0)));
-
+        Optional<Object> optionalCorrectAnswer;
+        for (int i=1; i <= 10; i++) {
+            optionalCorrectAnswer = Optional.ofNullable(request.getParameter("correct_" + i));
+            optionalCorrectAnswer.ifPresent(o -> correctAnswers.add(o.toString().charAt(0)));
+        }
         question.setCorrectAnswers(correctAnswers);
 
-        questionsStore.addQuestion(question);
-
-        writeJson(questionsStore);
-
-        request.getRequestDispatcher("addQuestion.jsp").forward(request,response);
+        return question;
     }
 
     private void writeJson(QuestionsStore questionsStore) {

@@ -2,9 +2,10 @@ package control;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Answer;
-import model.Answers;
 import model.Question;
+import model.QuestionsStore;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +23,9 @@ import java.util.Optional;
 @WebServlet(name = "AddQuestionServlet", urlPatterns = "addQuestion")
 public class AddQuestionServlet extends HttpServlet {
 
+    @EJB
+    private QuestionsStore questionsStore;
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
@@ -29,21 +33,20 @@ public class AddQuestionServlet extends HttpServlet {
         question.setQuestionId(request.getParameter("questionId"));
         question.setQuestionText(request.getParameter("questionText"));
 
-        Answers answers = new Answers();
         Answer answerA = new Answer();
-        List<Answer> answerList = new ArrayList<>();
+        List<Answer> answers = new ArrayList<>();
         answerA.setAnswerId('A');
         answerA.setAnswerText(request.getParameter("answerA"));
-        answerList.add(answerA);
+        answers.add(answerA);
         Answer answerB = new Answer();
         answerB.setAnswerId('B');
         answerB.setAnswerText(request.getParameter("answerB"));
-        answerList.add(answerB);
+        answers.add(answerB);
         Answer answerC = new Answer();
         answerC.setAnswerId('C');
         answerC.setAnswerText(request.getParameter("answerC"));
-        answerList.add(answerC);
-        answers.setAnswers(answerList);
+        answers.add(answerC);
+        question.setAnswers(answers);
 
         List<Character> correctAnswers = new ArrayList<>();
         Optional<Object> objectOptional = Optional.ofNullable(request.getParameter("correctA"));
@@ -55,21 +58,22 @@ public class AddQuestionServlet extends HttpServlet {
         objectOptional = Optional.ofNullable(request.getParameter("correctC"));
         objectOptional.ifPresent(o -> correctAnswers.add(o.toString().charAt(0)));
 
-        answers.setCorrectAnswers(correctAnswers);
-        question.setAnswers(answers);
+        question.setCorrectAnswers(correctAnswers);
 
-        writeJson(question);
+        questionsStore.addQuestion(question);
+
+        writeJson(questionsStore);
 
         request.getRequestDispatcher("addQuestion.jsp").forward(request,response);
     }
 
-    private void writeJson(Question question) {
+    private void writeJson(QuestionsStore questionsStore) {
         ObjectMapper objectMapper = new ObjectMapper();
         String pathToFile = "src/main/resources/questions.json";
         File jsonFile = new File(pathToFile);
 
         try {
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(jsonFile, question);
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(jsonFile, questionsStore);
         }
         catch (IOException e) {
             e.printStackTrace();

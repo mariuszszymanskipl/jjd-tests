@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Mariusz Szymanski
  */
@@ -8,7 +11,8 @@ public class Question {
     private String questionId;
     private String category;
     private String questionText;
-    private Answers answers;
+    private List<Answer> answers = new ArrayList<>();
+    private List<Character> correctAnswers = new ArrayList<>();
 
     public String getQuestionId() {
         return questionId;
@@ -34,11 +38,19 @@ public class Question {
         this.questionText = questionText;
     }
 
-    public Answers getAnswers() {
+    public List<Answer> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(Answers answers) {
+    public void setAnswers(List<Answer> answers) {
         this.answers = answers;
+    }
+
+    public List<Character> getCorrectAnswers() {
+        return correctAnswers;
+    }
+
+    public void setCorrectAnswers(List<Character> correctAnswers) {
+        this.correctAnswers = correctAnswers;
     }
 }

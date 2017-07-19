@@ -25,10 +25,14 @@ public class AddQuestionServlet extends HttpServlet {
     @EJB
     private QuestionsStore questionsStore;
     private final Map<Integer,Character> characters = this.setAnswersCharacters();
+    private final String pathToFile = "src/main/resources/questions.json";
+    private File jsonFile = new File(pathToFile);
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        questionsStore = this.readJson();
         request.setAttribute("characters", characters);
         request.getRequestDispatcher("addQuestion.jsp").forward(request,response);
     }
@@ -88,15 +92,21 @@ public class AddQuestionServlet extends HttpServlet {
     }
 
     private void writeJson(QuestionsStore questionsStore) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        String pathToFile = "src/main/resources/questions.json";
-        File jsonFile = new File(pathToFile);
-
         try {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(jsonFile, questionsStore);
         }
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private QuestionsStore readJson() {
+        QuestionsStore questionsStore = new QuestionsStore();
+        try {
+            questionsStore = objectMapper.readValue(jsonFile, QuestionsStore.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return questionsStore;
     }
 }

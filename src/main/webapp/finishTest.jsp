@@ -8,9 +8,10 @@
 <div class="container-fluid">
     <div class="jumbotron text-center">
         <h1>Your score:</h1>
-        <p>${result} / ${testSize}</p>
+        <h2>${result} / ${testSize}</h2>
+        <h2>${percentageResult} %</h2>
         <br>
-        <a type="button" class="btn btn-default btn-lg" href="startTest">Main page</a>
+        <a type="button" class="btn btn-default btn-lg" href="index.jsp">Main page</a>
     </div>
 </div>
 </body>

@@ -56,11 +56,14 @@ public class StartTestServlet extends HttpServlet {
             session.setAttribute("numberOfCorrectAnswers", numberOfCorrectAnswers);
         }
 
-
         int testSize = questionsStore.getQuestions().size();
+
         if (counter == testSize - 1) { // last question request
+            float percentageResult = ((float)numberOfCorrectAnswers / (float)testSize) * 100;
+            String formattedResult = String.format("%.02f", percentageResult);
             request.setAttribute("result", numberOfCorrectAnswers);
             request.setAttribute("testSize", testSize);
+            request.setAttribute("percentageResult", formattedResult);
             request.getRequestDispatcher("finishTest.jsp").forward(request, response);
         }
         if (counter < testSize - 1) {

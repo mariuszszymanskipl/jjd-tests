@@ -18,33 +18,26 @@
                 <div class="panel-body">
                     <div class="panel-title">${question.questionText}</div>
                     <br>
-                    <c:choose>
-                    <c:when test="${buttonName.equals('Finish')}">
-                    <form class="form-horizontal" action="finishTest" method="post">
-                        </c:when>
-                            <c:otherwise>
-                        <form class="form-horizontal" action="startTest" method="post">
-                            </c:otherwise>
-                            </c:choose>
+                    <form class="form-horizontal" action="startTest" method="post">
 
-                            <c:forEach var="answer" items="${question.answers}">
-                                <div class="form-group">
-                                    <div class="checkbox col-sm-offset-1">
-                                        <label>
-                                            <input type="checkbox" value="${answer.answerId}"
-                                                   name="correct_${question.answers.indexOf(answer)}"
-                                                   title="mark correct answer">
-                                                ${answer.answerId}. ${answer.answerText}</label>
-                                    </div>
-                                </div>
-                            </c:forEach>
-
+                        <c:forEach var="answer" items="${question.answers}">
                             <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-9">
-                                    <input class="btn btn-default pull-right" type="submit" value="${buttonName}">
+                                <div class="checkbox col-sm-offset-1">
+                                    <label>
+                                        <input type="checkbox" value="${answer.answerId}"
+                                               name="correct_${answer.answerId}"
+                                               title="mark correct answer">
+                                            ${answer.answerId}. ${answer.answerText}</label>
                                 </div>
                             </div>
-                        </form>
+                        </c:forEach>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-9">
+                                <input class="btn btn-default pull-right" type="submit" value="${buttonName}">
+                            </div>
+                        </div>
+                    </form>
 
                 </div>
             </div>

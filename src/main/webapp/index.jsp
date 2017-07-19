@@ -12,6 +12,8 @@
         <h1>Junior Java Developer</h1>
         <p>Test your knowledge!</p>
         <br>
+        <a type="button" class="btn btn-default btn-lg" href="startTest">Start new test</a>
+        <br>
         <a type="button" class="btn btn-default btn-lg" href="addQuestion">Add new question</a>
     </div>
 </div>

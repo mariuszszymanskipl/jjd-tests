@@ -16,24 +16,20 @@
                 </div>
 
                 <div class="panel-body">
-                    <div class="panel-title">Question Title</div>
-
+                    <div class="panel-title">${question.questionText}</div>
+                    <br>
                     <form class="form-horizontal" action="startTest" method="post">
 
-                        <c:forEach var="answer" items="${questionAnswers}">
-                        <div class="form-group">
-                            <label for="answer_${entry.getKey()}" class="col-sm-2 control-label">
-                                    ${entry.getValue()}</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                <span class="input-group-addon">
-                                    <input type="checkbox" name="correct_${entry.getKey()}" value="${entry.getValue()}"
-                                           title="mark correct answer">
-                                </span>
-                                    <p>Answer text</p>
+                        <c:forEach var="answer" items="${question.answers}">
+                            <div class="form-group">
+                                <div class="checkbox col-sm-offset-1">
+                                    <label for="answer_${answer.answerId}">
+                                        <input type="checkbox" value="${answer.answerId}"
+                                               name="correct_${answer.answerId}"
+                                               title="mark correct answer">
+                                            ${answer.answerId}. ${answer.answerText}</label>
                                 </div>
                             </div>
-                        </div>
                         </c:forEach>
 
                         <div class="form-group">

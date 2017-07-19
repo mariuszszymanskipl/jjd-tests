@@ -12,32 +12,39 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <div class="panel-title">Question ${questionNumber}/${questionsSize}</div>
+                    <div class="panel-title">Question ${questionNumber}/${testSize}</div>
                 </div>
 
                 <div class="panel-body">
                     <div class="panel-title">${question.questionText}</div>
                     <br>
-                    <form class="form-horizontal" action="startTest" method="post">
+                    <c:choose>
+                    <c:when test="${buttonName.equals('Finish')}">
+                    <form class="form-horizontal" action="finishTest" method="post">
+                        </c:when>
+                            <c:otherwise>
+                        <form class="form-horizontal" action="startTest" method="post">
+                            </c:otherwise>
+                            </c:choose>
 
-                        <c:forEach var="answer" items="${question.answers}">
+                            <c:forEach var="answer" items="${question.answers}">
+                                <div class="form-group">
+                                    <div class="checkbox col-sm-offset-1">
+                                        <label>
+                                            <input type="checkbox" value="${answer.answerId}"
+                                                   name="correct_${question.answers.indexOf(answer)}"
+                                                   title="mark correct answer">
+                                                ${answer.answerId}. ${answer.answerText}</label>
+                                    </div>
+                                </div>
+                            </c:forEach>
+
                             <div class="form-group">
-                                <div class="checkbox col-sm-offset-1">
-                                    <label for="answer_${answer.answerId}">
-                                        <input type="checkbox" value="${answer.answerId}"
-                                               name="correct_${answer.answerId}"
-                                               title="mark correct answer">
-                                            ${answer.answerId}. ${answer.answerText}</label>
+                                <div class="col-sm-offset-2 col-sm-9">
+                                    <input class="btn btn-default pull-right" type="submit" value="${buttonName}">
                                 </div>
                             </div>
-                        </c:forEach>
-
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-9">
-                                <input class="btn btn-default pull-right" type="submit" value="Next question">
-                            </div>
-                        </div>
-                    </form>
+                        </form>
 
                 </div>
             </div>

@@ -21,23 +21,38 @@ public class StartTestServlet extends HttpServlet {
     @EJB
     private QuestionsStore questionsStore;
     private QAService qaService = new QAService();
-    private final Map<Integer,Character> characters = qaService.getAnswerCharacters();
+    private final Map<Integer, Character> characters = qaService.getAnswerCharacters();
+    private int counter;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
         request.setAttribute("characters", characters);
         questionsStore = qaService.readJson();
-        Question question1 = questionsStore.getQuestions().get(0);
+        counter = 0;
+        Question question1 = questionsStore.getQuestions().get(counter);
         request.setAttribute("question", question1);
-        request.setAttribute("questionsSize", questionsStore.getQuestions().size());
+        request.setAttribute("testSize", questionsStore.getQuestions().size());
         request.setAttribute("questionNumber", question1.getQuestionId());
-        request.getRequestDispatcher("startTest.jsp").forward(request,response);
+        request.setAttribute("buttonName", "Next question");
+        request.getRequestDispatcher("startTest.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+        request.setAttribute("characters", characters);
+        counter++;
+        int testSize = questionsStore.getQuestions().size();
+        Question question = questionsStore.getQuestions().get(counter);
+        request.setAttribute("question", question);
+        request.setAttribute("testSize", testSize);
+        request.setAttribute("questionNumber", question.getQuestionId());
+        if (counter < testSize - 1) {
+            request.setAttribute("buttonName", "Next question");
+        } else {
+            request.setAttribute("buttonName", "Finish");
+        }
+        request.getRequestDispatcher("startTest.jsp").forward(request, response);
     }
-
-
 }

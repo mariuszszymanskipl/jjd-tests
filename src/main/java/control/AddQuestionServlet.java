@@ -25,6 +25,7 @@ public class AddQuestionServlet extends HttpServlet {
     @EJB
     private QuestionsStore questionsStore;
     private final Map<Integer,Character> characters = this.setAnswersCharacters();
+    private final List<String> categories = this.setCategories();
     private final String pathToFile = "src/main/resources/questions.json";
     private File jsonFile = new File(pathToFile);
     private ObjectMapper objectMapper = new ObjectMapper();
@@ -34,6 +35,7 @@ public class AddQuestionServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         questionsStore = this.readJson();
         request.setAttribute("characters", characters);
+        request.setAttribute("categories", categories);
         request.getRequestDispatcher("addQuestion.jsp").forward(request,response);
     }
 
@@ -44,6 +46,7 @@ public class AddQuestionServlet extends HttpServlet {
         questionsStore.addQuestion(question);
         writeJson(questionsStore);
         request.setAttribute("characters", characters);
+        request.setAttribute("categories", categories);
         request.getRequestDispatcher("addQuestion.jsp").forward(request,response);
     }
 
@@ -54,6 +57,7 @@ public class AddQuestionServlet extends HttpServlet {
 
         Question question = new Question();
         question.setQuestionId(request.getParameter("questionId"));
+        question.setCategory(request.getParameter("category"));
         question.setQuestionText(request.getParameter("questionText"));
 
         List<Answer> answers = new ArrayList<>();
@@ -89,6 +93,15 @@ public class AddQuestionServlet extends HttpServlet {
         List<Character> characters = Arrays.asList('A','B','C','D','E','F','G','H');
         characters.forEach(ch -> characterMap.put(characters.indexOf(ch)+1,ch));
         return characterMap;
+    }
+
+    private List<String> setCategories(){
+        List<String> categories;
+        String[] categoriesArray = {"SCRUM", "TOOLS", "JAVA SE", "JAVA 8", "GIT", "MAVEN", "LINUX",
+        "DOCKER", "LOGGERS", "JUNIT", "FRONTEND", "CLEAN CODE", "JAVA EE", "SQL", "JSP/HIBERNATE",
+        "JBOSS/WILDFLY", "CI/JENKINS", "TDD", "HTTP", "DEBUG", "REST", "SOAP", "DESIGN PATTERNS", "UML"};
+        categories = Arrays.asList(categoriesArray);
+        return categories;
     }
 
     private void writeJson(QuestionsStore questionsStore) {

@@ -34,9 +34,9 @@
                                 <select class="form-control selectpicker" name="category"
                                         id="category">
                                     <option value="" disabled selected>Choose category</option>
-                                    <%--<c:forEach var="category" items="${categories}">--%>
-                                    <%--<option value="${category}">${category}</option>--%>
-                                    <%--</c:forEach>--%>
+                                    <c:forEach var="category" items="${categories}">
+                                    <option value="${category}">${category}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
                         </div>

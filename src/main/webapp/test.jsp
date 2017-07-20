@@ -18,7 +18,7 @@
                 <div class="panel-body">
                     <div class="panel-title">${question.questionText}</div>
                     <br>
-                    <form class="form-horizontal" action="startTest" method="post">
+                    <form class="form-horizontal" action="test" method="post">
 
                         <c:forEach var="answer" items="${question.answers}">
                             <div class="form-group">

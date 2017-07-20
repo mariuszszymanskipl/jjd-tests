@@ -16,8 +16,8 @@ import java.util.*;
 /**
  * @author Mariusz Szymanski
  */
-@WebServlet(name = "StartTestServlet", urlPatterns = "startTest")
-public class StartTestServlet extends HttpServlet {
+@WebServlet(name = "TestServlet", urlPatterns = "test")
+public class TestServlet extends HttpServlet {
 
     @EJB
     private QuestionsStore questionsStore;
@@ -44,7 +44,7 @@ public class StartTestServlet extends HttpServlet {
         request.setAttribute("testSize", testSize);
         request.setAttribute("questionNumber", question1.getQuestionId());
         request.setAttribute("buttonName", "Next question");
-        request.getRequestDispatcher("startTest.jsp").forward(request, response);
+        request.getRequestDispatcher("test.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -81,7 +81,7 @@ public class StartTestServlet extends HttpServlet {
             } else {
                 request.setAttribute("buttonName", "Finish");
             }
-            request.getRequestDispatcher("startTest.jsp").forward(request, response);
+            request.getRequestDispatcher("test.jsp").forward(request, response);
         }
     }
 

@@ -4,7 +4,6 @@
 <html>
 <head>
     <jsp:include page="partials/meta.jsp"/>
-
 </head>
 <body>
 
@@ -57,7 +56,7 @@
                                     <div class="input-group">
                                 <span class="input-group-addon">
                                     <input type="checkbox" name="correct_${entry.getKey()}" value="${entry.getValue()}"
-                                           title="check correct answer">
+                                           title="mark correct answer">
                                 </span>
                                         <input type="text" class="form-control" name="answer_${entry.getKey()}"
                                                id="answer_${entry.getKey()}" placeholder="Answer ${entry.getValue()}">

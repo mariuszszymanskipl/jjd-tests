@@ -12,7 +12,7 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <div class="panel-title">Question ${questionNumber}/${testSize}</div>
+                    <div class="panel-title">Question ${question.questionId}/${testSize}</div>
                 </div>
 
                 <div class="panel-body">

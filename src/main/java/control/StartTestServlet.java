@@ -11,10 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Mariusz Szymanski
@@ -27,10 +24,13 @@ public class StartTestServlet extends HttpServlet {
     private QAService qaService = new QAService();
     private final Map<Integer, Character> characters = qaService.getAnswerCharacters();
     private int counter;
+    private int testSize;
     private HttpSession session;
+    private Map<Question, List<Character>> studentAnswersMap;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        studentAnswersMap = new HashMap<>();
         session = request.getSession();
         session.setAttribute("numberOfCorrectAnswers", 0);
 
@@ -38,9 +38,10 @@ public class StartTestServlet extends HttpServlet {
         request.setAttribute("characters", characters);
         questionsStore = qaService.readJson();
         counter = 0;
+        testSize = questionsStore.getQuestions().size();
         Question question1 = questionsStore.getQuestions().get(counter);
         request.setAttribute("question", question1);
-        request.setAttribute("testSize", questionsStore.getQuestions().size());
+        request.setAttribute("testSize", testSize);
         request.setAttribute("questionNumber", question1.getQuestionId());
         request.setAttribute("buttonName", "Next question");
         request.getRequestDispatcher("startTest.jsp").forward(request, response);
@@ -48,32 +49,33 @@ public class StartTestServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        Question questionToVerify = questionsStore.getQuestions().get(counter);
         Integer numberOfCorrectAnswers = (Integer) session.getAttribute("numberOfCorrectAnswers");
-        List<Character> correctAnswers = questionsStore.getQuestions().get(counter).getCorrectAnswers();
-        boolean answerIsCorrect = verifyCorrectAnswers(request, correctAnswers);
+        List<Character> correctAnswers = questionToVerify.getCorrectAnswers();
+        List<Character> studentAnswers = this.getStudentAnswers(request);
+        boolean answerIsCorrect = verifyCorrectAnswers(studentAnswers, correctAnswers);
         if (answerIsCorrect) {
             numberOfCorrectAnswers++;
             session.setAttribute("numberOfCorrectAnswers", numberOfCorrectAnswers);
         }
-
-        int testSize = questionsStore.getQuestions().size();
+        studentAnswersMap.put(questionToVerify, studentAnswers);
 
         if (counter == testSize - 1) { // last question request
-            float percentageResult = ((float)numberOfCorrectAnswers / (float)testSize) * 100;
+            float percentageResult = ((float)numberOfCorrectAnswers / testSize) * 100;
             String formattedResult = String.format("%.02f", percentageResult);
             request.setAttribute("result", numberOfCorrectAnswers);
             request.setAttribute("testSize", testSize);
             request.setAttribute("percentageResult", formattedResult);
+            request.setAttribute("studentAnswersMap", studentAnswersMap);
             request.getRequestDispatcher("finishTest.jsp").forward(request, response);
         }
         if (counter < testSize - 1) {
             counter++;
-            Question question = questionsStore.getQuestions().get(counter);
+            Question nextQuestion = questionsStore.getQuestions().get(counter);
             request.setCharacterEncoding("UTF-8");
             request.setAttribute("characters", characters);
-            request.setAttribute("question", question);
+            request.setAttribute("question", nextQuestion);
             request.setAttribute("testSize", testSize);
-            request.setAttribute("questionNumber", question.getQuestionId());
             if (counter < testSize - 1) {
                 request.setAttribute("buttonName", "Next question");
             } else {
@@ -83,7 +85,11 @@ public class StartTestServlet extends HttpServlet {
         }
     }
 
-    private boolean verifyCorrectAnswers(HttpServletRequest request, List<Character> correctAnswers) {
+    private boolean verifyCorrectAnswers(List<Character> studentAnswers, List<Character> correctAnswers) {
+        return studentAnswers.size() == correctAnswers.size() && correctAnswers.containsAll(studentAnswers);
+    }
+
+    private List<Character> getStudentAnswers(HttpServletRequest request){
         int numberOfChars = characters.size();
         List<Character> studentAnswers = new ArrayList<>();
         Optional<Object> optionalCorrectAnswer;
@@ -92,6 +98,6 @@ public class StartTestServlet extends HttpServlet {
             optionalCorrectAnswer = Optional.ofNullable(request.getParameter(reqParameter));
             optionalCorrectAnswer.ifPresent(o -> studentAnswers.add(o.toString().charAt(0)));
         }
-        return studentAnswers.size() == correctAnswers.size() && correctAnswers.containsAll(studentAnswers);
+        return studentAnswers;
     }
 }

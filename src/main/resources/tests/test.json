@@ -1,0 +1,87 @@
+{
+  "questions" : [ {
+    "questionId" : "1",
+    "category" : "GIT",
+    "questionText" : "Jakiego rodzaju VCS-em (systemem kontroli wersji) jest GIT?",
+    "answers" : [ {
+      "answerId" : "A",
+      "answerText" : "centralnym"
+    }, {
+      "answerId" : "B",
+      "answerText" : "rozproszonym"
+    }, {
+      "answerId" : "C",
+      "answerText" : "lokalnym"
+    }, {
+      "answerId" : "D",
+      "answerText" : "lokalno-rozproszonym"
+    } ],
+    "correctAnswers" : [ "B" ]
+  }, {
+    "questionId" : "2",
+    "category" : "MAVEN",
+    "questionText" : "Archetyp w Maven to:",
+    "answers" : [ {
+      "answerId" : "A",
+      "answerText" : "biblioteka"
+    }, {
+      "answerId" : "B",
+      "answerText" : "gotowy do użycia szablon projektu"
+    }, {
+      "answerId" : "C",
+      "answerText" : "zależność projektu konieczna do pisania aplikacji JEE"
+    }, {
+      "answerId" : "D",
+      "answerText" : "sposób pakowania aplikacji"
+    } ],
+    "correctAnswers" : [ "B" ]
+  }, {
+    "questionId" : "3",
+    "category" : "JAVA SE",
+    "questionText" : "Czy klasa w Javie może dziedziczyć z kilku klas?",
+    "answers" : [ {
+      "answerId" : "A",
+      "answerText" : "Tak, zawsze"
+    }, {
+      "answerId" : "B",
+      "answerText" : "Tak, jeśli obydwie klasy dziedziczą z tej samej klasy"
+    }, {
+      "answerId" : "C",
+      "answerText" : "Nie, ale może implementować kilka interfejsów"
+    } ],
+    "correctAnswers" : [ "C" ]
+  }, {
+    "questionId" : "4",
+    "category" : "SCRUM",
+    "questionText" : "Ile maksymalnie może trwać codzienny scrum (inaczej \"standup\" lub \"daily\")?",
+    "answers" : [ {
+      "answerId" : "A",
+      "answerText" : "5 min na każdy tydzień sprintu"
+    }, {
+      "answerId" : "B",
+      "answerText" : "10 min bez względu na długość sprintu"
+    }, {
+      "answerId" : "C",
+      "answerText" : "15 min bez względu na długość sprintu"
+    } ],
+    "correctAnswers" : [ "C" ]
+  }, {
+    "questionId" : "5",
+    "category" : "JAVA 8",
+    "questionText" : "Zaznacz prawidłowe wyrażenia dotyczące strumieni:",
+    "answers" : [ {
+      "answerId" : "A",
+      "answerText" : "nie przechowują elementów"
+    }, {
+      "answerId" : "B",
+      "answerText" : "modyfikują źródłową kolekcję"
+    }, {
+      "answerId" : "C",
+      "answerText" : "są wyliczane leniwie"
+    }, {
+      "answerId" : "D",
+      "answerText" : "mogą być wielokrotnie odwiedzane"
+    } ],
+    "correctAnswers" : [ "A", "C" ]
+  } ]
+}

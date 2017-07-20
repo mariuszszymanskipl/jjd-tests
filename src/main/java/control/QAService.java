@@ -17,7 +17,7 @@ public class QAService {
 
     private final Map<Integer,Character> characters;
     private final List<String> categories;
-    private final String pathToFile = "src/main/resources/questions.json";
+    private final String pathToFile = "src/main/resources/tests/test.json";
     private File jsonFile = new File(pathToFile);
     private ObjectMapper objectMapper = new ObjectMapper();
 

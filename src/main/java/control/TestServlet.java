@@ -61,7 +61,7 @@ public class TestServlet extends HttpServlet {
         studentAnswersMap.put(questionToVerify, studentAnswers);
 
         if (counter == testSize - 1) { // last question request
-            float percentageResult = ((float)numberOfCorrectAnswers / testSize) * 100;
+            float percentageResult = ((float) numberOfCorrectAnswers / testSize) * 100;
             String formattedResult = String.format("%.02f", percentageResult);
             request.setAttribute("result", numberOfCorrectAnswers);
             request.setAttribute("testSize", testSize);
@@ -89,15 +89,11 @@ public class TestServlet extends HttpServlet {
         return studentAnswers.size() == correctAnswers.size() && correctAnswers.containsAll(studentAnswers);
     }
 
-    private List<Character> getStudentAnswers(HttpServletRequest request){
-        int numberOfChars = characters.size();
+    private List<Character> getStudentAnswers(HttpServletRequest request) {
         List<Character> studentAnswers = new ArrayList<>();
-        Optional<Object> optionalCorrectAnswer;
-        for (int i = 1; i <= numberOfChars; i++) {
-            String reqParameter = "correct_" + characters.get(i);
-            optionalCorrectAnswer = Optional.ofNullable(request.getParameter(reqParameter));
-            optionalCorrectAnswer.ifPresent(o -> studentAnswers.add(o.toString().charAt(0)));
-        }
+        characters.forEach((integer, character) -> Optional
+                .ofNullable(request.getParameter("correct_" + character))
+                .ifPresent(o -> studentAnswers.add(character)));
         return studentAnswers;
     }
 }

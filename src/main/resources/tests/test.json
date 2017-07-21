@@ -1,87 +1,87 @@
 {
   "questions" : [ {
     "questionId" : "1",
-    "category" : "GIT",
-    "questionText" : "Jakiego rodzaju VCS-em (systemem kontroli wersji) jest GIT?",
+    "category" : "JAVA SE",
+    "questionText" : "Comparable.compareTo() method will produce the following result:",
     "answers" : [ {
       "answerId" : "A",
-      "answerText" : "centralnym"
+      "answerText" : "true, false"
     }, {
       "answerId" : "B",
-      "answerText" : "rozproszonym"
+      "answerText" : "0, 1"
     }, {
       "answerId" : "C",
-      "answerText" : "lokalnym"
+      "answerText" : "1, 0, -1"
     }, {
       "answerId" : "D",
-      "answerText" : "lokalno-rozproszonym"
+      "answerText" : "negative integer, zero or a positive integer"
     } ],
-    "correctAnswers" : [ "B" ]
+    "correctAnswers" : [ "D" ]
   }, {
     "questionId" : "2",
-    "category" : "MAVEN",
-    "questionText" : "Archetyp w Maven to:",
+    "category" : "JAVA SE",
+    "questionText" : "A java collection data structure to keep items sorted:",
     "answers" : [ {
       "answerId" : "A",
-      "answerText" : "biblioteka"
+      "answerText" : "LinkedHashSet"
     }, {
       "answerId" : "B",
-      "answerText" : "gotowy do użycia szablon projektu"
+      "answerText" : "HashSet"
     }, {
       "answerId" : "C",
-      "answerText" : "zależność projektu konieczna do pisania aplikacji JEE"
+      "answerText" : "TreeMap"
     }, {
       "answerId" : "D",
-      "answerText" : "sposób pakowania aplikacji"
+      "answerText" : "TreeSet"
     } ],
-    "correctAnswers" : [ "B" ]
+    "correctAnswers" : [ "C", "D" ]
   }, {
     "questionId" : "3",
     "category" : "JAVA SE",
-    "questionText" : "Czy klasa w Javie może dziedziczyć z kilku klas?",
+    "questionText" : "Can a class inherit from two super classes at the same time in Java?",
     "answers" : [ {
       "answerId" : "A",
-      "answerText" : "Tak, zawsze"
+      "answerText" : "Yes, always"
     }, {
       "answerId" : "B",
-      "answerText" : "Tak, jeśli obydwie klasy dziedziczą z tej samej klasy"
+      "answerText" : "Yes, but you have to override superclass's methods"
     }, {
       "answerId" : "C",
-      "answerText" : "Nie, ale może implementować kilka interfejsów"
+      "answerText" : "No multiple inheritance in Java. It's not allowed by the language"
     } ],
     "correctAnswers" : [ "C" ]
   }, {
     "questionId" : "4",
-    "category" : "SCRUM",
-    "questionText" : "Ile maksymalnie może trwać codzienny scrum (inaczej \"standup\" lub \"daily\")?",
+    "category" : "JAVA SE",
+    "questionText" : "Best way to change value of existing string:",
     "answers" : [ {
       "answerId" : "A",
-      "answerText" : "5 min na każdy tydzień sprintu"
+      "answerText" : "use the StringBuilder class"
     }, {
       "answerId" : "B",
-      "answerText" : "10 min bez względu na długość sprintu"
+      "answerText" : "convert the string into a char array, make modifications, and then convert the char array back to a string"
     }, {
       "answerId" : "C",
-      "answerText" : "15 min bez względu na długość sprintu"
+      "answerText" : "strings are immutable, so you can't change its value"
     } ],
     "correctAnswers" : [ "C" ]
   }, {
     "questionId" : "5",
-    "category" : "JAVA 8",
-    "questionText" : "Zaznacz prawidłowe wyrażenia dotyczące strumieni:",
+    "category" : "JAVA SE",
+    "questionText" : "Class Object DO NOT contains the method:",
     "answers" : [ {
       "answerId" : "A",
-      "answerText" : "nie przechowują elementów"
+      "answerText" : "equals()"
     }, {
       "answerId" : "B",
-      "answerText" : "modyfikują źródłową kolekcję"
+      "answerText" : "toHashCode()"
     }, {
       "answerId" : "C",
-      "answerText" : "są wyliczane leniwie"
+      "answerText" : "toString()"
     }, {
       "answerId" : "D",
-      "answerText" : "mogą być wielokrotnie odwiedzane"
+      "answerText" : "wait()"
     } ],
-    "correctAnswers" : [ "A", "C" ]
+    "correctAnswers" : [ "A", "B" ]
   } ]
 }
